@@ -1,0 +1,6 @@
+@extends('layouts.app') @section('title','Students') @section('content')
+<div class="heading"><div><h1>Students</h1><div class="muted">Manage student records.</div></div><a class="btn gold" href="{{ route('students.create') }}">+ Add student</a></div>
+<div class="card"><div class="table-wrap"><table><thead><tr><th>Student No.</th><th>Name</th><th>Email</th><th>Programme</th><th>Registrations</th><th>Actions</th></tr></thead><tbody>
+@forelse($students as $student)<tr><td>{{ $student->student_number }}</td><td>{{ $student->first_name }} {{ $student->last_name }}</td><td>{{ $student->email }}</td><td>{{ $student->course_of_study ?? '—' }}</td><td>{{ $student->registrations_count }}</td><td><div class="actions"><a class="btn light" href="{{ route('students.show',$student) }}">View</a><a class="btn" href="{{ route('students.edit',$student) }}">Edit</a><form method="POST" action="{{ route('students.destroy',$student) }}" onsubmit="return confirm('Delete this student and their registrations?')">@csrf @method('DELETE')<button class="btn red">Delete</button></form></div></td></tr>
+@empty<tr><td colspan="6">No students have been added.</td></tr>@endforelse</tbody></table></div><div class="pagination">{{ $students->links() }}</div></div>
+@endsection

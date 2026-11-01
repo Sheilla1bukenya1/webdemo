@@ -1,0 +1,5 @@
+@extends('layouts.app') @section('title','Student details') @section('content')
+<div class="heading"><div><h1>Student details</h1><div class="muted">Student profile and registered courses.</div></div><div class="actions"><a class="btn" href="{{ route('students.edit',$student) }}">Edit student</a><a class="btn light" href="{{ route('students.index') }}">Back</a></div></div>
+<div class="card"><p><strong>Student number:</strong> {{ $student->student_number }}</p><p><strong>Name:</strong> {{ $student->first_name }} {{ $student->last_name }}</p><p><strong>Email:</strong> {{ $student->email }}</p><p><strong>Programme:</strong> {{ $student->course_of_study ?? '—' }}</p></div>
+<div class="card"><h2>Registered courses</h2><div class="table-wrap"><table><tr><th>Code</th><th>Course</th><th>Registration date</th></tr>@forelse($student->registrations as $reg)<tr><td>{{ $reg->course->course_code }}</td><td>{{ $reg->course->course_name }}</td><td>{{ $reg->registration_date->format('d M Y') }}</td></tr>@empty<tr><td colspan="3">No registrations.</td></tr>@endforelse</table></div></div>
+@endsection
